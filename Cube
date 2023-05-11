@@ -1,0 +1,12 @@
+class Cube extends Tetrimino{
+  private int[][] squaresTemp = {{19, 4}, {19, 5}, {18, 4}, {18, 5}};
+  private int[] URBoundTemp = {19, 5};
+  private int[] BLBoundTemp = {18, 4};
+  public Cube(){
+    squares = squaresTemp;
+    URBound = URBoundTemp;
+    BLBound = BLBoundTemp;
+    hex = "#00FF00";
+  } 
+
+}
