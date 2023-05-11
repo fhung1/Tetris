@@ -1,0 +1,65 @@
+import java.util.*;
+import static java.util.concurrent.TimeUnit.*;
+
+public class Tetrimino{
+  protected boolean isPlaced;
+  protected String hex;
+  protected int[][] squares;
+  protected int[] URBound;
+  protected int[] BLBound; 
+  
+  
+  public Tetrimino(){
+  }
+
+  // rotates the tetrimino clockwise
+  public void rotateClockwise(){
+    for(int[] temp: squares){
+      Game.board[temp[0]][temp[1]] = false;
+      temp[0] = URBound[1]-temp[1]+BLBound[0];
+      temp[1] = URBound[0]-temp[0]+BLBound[1];
+      Game.board[temp[0]][temp[1]] = true;
+    }
+  }
+  // rotates the tetrimino counter clockwise
+  public void rotateCounterClockwise(){
+    for(int[] temp: squares){
+      Game.board[temp[0]][temp[1]] = false;
+      temp[0] = temp[1]-BLBound[1]+BLBound[0];
+      temp[1] = temp[0]-BLBound[0]+BLBound[1];
+      Game.board[temp[0]][temp[1]] = true;
+    }
+  }
+
+  // moves all indicies in the square objects down on on the board
+  // does NOT check if it can move down
+
+    public void moveDown(){
+    for(int[] temp: squares){
+      Game.board[temp[0]][temp[1]] = false;
+      temp[1]--;
+      Game.board[temp[0]][temp[1]] = true;
+    }
+    URBound[1]--;
+    BLBound[1]--;
+  }
+
+  // returns an arraylist of the lowest squares in each column
+  private ArrayList<int[]> getLowSquares(){
+    ArrayList<int[]> lowSquares = new ArrayList<int[]>();
+    for(int i = 0; i<10; i++){
+      int[] lowest = null;
+      for(int[] coords: squares){
+        if(coords[1] == i && (lowest == null || coords[0]<lowest[0]))
+          lowest = coords;
+      }
+      if(lowest != null)
+        lowSquares.add(lowest);
+    }
+    return lowSquares;
+    
+  }
+  
+
+ 
+}
